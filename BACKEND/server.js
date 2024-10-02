@@ -11,20 +11,22 @@ const app = express();
 const port = process.env.PORT || 3002;
 const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/WEBSTORY';
 
-// Connect to MongoDB
+// Connect to MongoDB Atlas
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((error) => console.log("MongoDB connection error:", error));
+  .then(() => {
+    console.log('Successfully connected to MongoDB Atlas!');
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB Atlas:', error);
+  });
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({
-  origin: 'http://localhost:5173', // Adjust this if needed for your frontend
-}));
+app.use(cors());
 
 // Routes
 const storyRoutes = require('./routes/stories');

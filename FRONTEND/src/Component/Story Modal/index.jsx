@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
-import './index.css';
-import Bookmarks from '../../assets/Images/Bookmarks.png';
-import BlueBookmark from '../../assets/Images/blueBookmark.png';
-import Share from '../../assets/Images/Share.png';
-import Cross from '../../assets/Images/Cross.png';
-import RedHeart from '../../assets/Images/RedHeart.png';
-import WhiteHeart from '../../assets/Images/WhiteHeart.png';
-import Left from '../../assets/Images/Left.png';
-import Right from '../../assets/Images/Right.png';
-import { bookmarkStory, likeStory, unLikeStory } from '../../api';
+import React, { useState, useEffect, useContext } from "react";
+import "./index.css";
+import Bookmarks from "../../assets/Images/Bookmarks.png";
+import BlueBookmark from "../../assets/Images/BlueBookmark.png";
+import Share from "../../assets/Images/Share.png";
+import Cross from "../../assets/Images/Cross.png";
+import RedHeart from "../../assets/Images/RedHeart.png";
+import WhiteHeart from "../../assets/Images/WhiteHeart.png";
+import Left from "../../assets/Images/Left.png";
+import Right from "../../assets/Images/Right.png";
+import { bookmarkStory, likeStory, unLikeStory } from "../../api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Login from '../../pages/Login';
-import { AuthContext } from '../../context/AuthContext';
+import Login from "../../pages/Login";
+import { AuthContext } from "../../context/AuthContext";
 
 const StoryModal = ({ story, onClose, onLoginSuccess }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -25,7 +25,6 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
   const { login } = useContext(AuthContext);
   const currentUser = JSON.parse(localStorage.getItem("user"));
 
-
   const SLIDE_DURATION = 15000; // Duration for each slide
 
   // Helper function to determine if the URL is a video
@@ -33,21 +32,19 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
   useEffect(() => {
     setCurrentSlideIndex(0);
     setProgress(0);
-      if (story && story.slides) {
-        
-        const updatedLikesCount = story.slides.map(
-          (slide) => slide.userName.length
+    if (story && story.slides) {
+      const updatedLikesCount = story.slides.map(
+        (slide) => slide.userName.length
+      );
+      // Set the likesCount array for all slides
+      setLikesCount(updatedLikesCount);
+      if (currentUser) {
+        const updatedLiked = story.slides.map((slide) =>
+          slide.userName.includes(currentUser.username)
         );
-        // Set the likesCount array for all slides
-        setLikesCount(updatedLikesCount);
-        if(currentUser){
-          const updatedLiked = story.slides.map((slide) =>
-            slide.userName.includes(currentUser.username)
-          );
-          // Set the liked array for all slides
-          setLiked(updatedLiked);
-        }
-  
+        // Set the liked array for all slides
+        setLiked(updatedLiked);
+      }
     }
   }, [story]);
 
@@ -78,7 +75,7 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
   };
 
   const handleCopyLink = (storyId) => {
-    const storyLink = `http://localhost:5173/story/${storyId}`;
+    const storyLink = `${import.meta.env.VITE_WEB_URL}/story/${storyId}`;
     navigator.clipboard.writeText(storyLink);
     toast.success("Link copied to clipboard!");
   };
@@ -92,24 +89,24 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
 
     try {
       if (!liked[currentSlideIndex]) {
-        const currLikes = await likeStory(storyId, index);
         setLiked((prevLiked) => {
           const updatedLiked = [...prevLiked];
           updatedLiked[index] = true;
           return updatedLiked;
         });
+        const currLikes = await likeStory(storyId, index);
         setLikesCount((prevLikesCount) => {
           const updatedLikesCount = [...prevLikesCount];
           updatedLikesCount[index] = currLikes;
           return updatedLikesCount;
         });
       } else {
-        const currLikes = await unLikeStory(storyId, index);
         setLiked((prevLiked) => {
           const updatedLiked = [...prevLiked];
           updatedLiked[index] = false;
           return updatedLiked;
         });
+        const currLikes = await unLikeStory(storyId, index);
         setLikesCount((prevLikesCount) => {
           const updatedLikesCount = [...prevLikesCount];
           updatedLikesCount[index] = currLikes;
@@ -117,6 +114,7 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
         });
       }
     } catch (error) {
+      console.log(error);
       toast.error("Failed to toggle like!");
     }
   };
@@ -144,7 +142,13 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
       <div className="small-progress-bar" key={index}>
         <div
           style={{
-            width: `${index < currentSlideIndex ? 100 : index === currentSlideIndex ? progress : 0}%`,
+            width: `${
+              index < currentSlideIndex
+                ? 100
+                : index === currentSlideIndex
+                ? progress
+                : 0
+            }%`,
           }}
         ></div>
       </div>
@@ -171,7 +175,7 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
       // setPendingLikeAction({ storyId, index });
       setIsLoginModalOpen(true);
       return;
-    }else{
+    } else {
       try {
         const response = await fetch(url, { mode: "cors" });
         const blob = await response.blob();
@@ -245,7 +249,9 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
               />
             </button>
             <button
-              onClick={() => handleDownload(story.slides[currentSlideIndex].imageUrl)}
+              onClick={() =>
+                handleDownload(story.slides[currentSlideIndex].imageUrl)
+              }
             >
               Download
             </button>

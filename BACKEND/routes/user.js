@@ -92,28 +92,6 @@ router.post('/login', [
     }
 });
 
-// Bookmark a story for a user
-router.post('/:userId/bookmark/:storyId', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.userId);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        const storyId = req.params.storyId;
-
-        if (!user.bookmarks.includes(storyId)) {
-            user.bookmarks.push(storyId);
-            await user.save();
-            res.status(200).json({ message: 'Story added to bookmarks!' });
-        } else {
-            res.status(400).json({ message: 'Story already bookmarked!' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Error adding bookmark', error: error.message });
-    }
-});
-
 //Get stories
 router.get('/stories',[authenticateToken], async (req, res) => {
     try {

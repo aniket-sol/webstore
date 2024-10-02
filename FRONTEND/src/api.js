@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base URL for your backend API
-export const API_URL = 'http://localhost:3002'; 
+export const API_URL = import.meta.env.VITE_API_URL;
 
 // Register function
 export const signup = async (userData) => {
@@ -18,10 +18,10 @@ export const signup = async (userData) => {
 export const login = async (credentials) => {
     try {
         const response = await axios.post(`${API_URL}/user/login`, credentials);
-        console.log("Login response:", response.data);
+        // console.log("Login response:", response.data);
         return response.data;
     } catch (error) {
-        console.error("Login error:", error);
+        // console.error("Login error:", error);
         throw new Error(error.response?.data?.message || 'Login failed');
     }
 };
@@ -79,7 +79,7 @@ export const updateStory = async (storyData, storyId) => {
 export const getStoriesByCategory = async (categoryId) => {
     try {
         const response = await axios.get(`${API_URL}/categories/${categoryId}/all`);
-        console.log(response);
+        // console.log(response);
         return response.data.stories;
     } catch (error) {
         console.error("Get stories error:", error);
@@ -105,7 +105,7 @@ export const likeStory = async (storyId, slideIndex) => {
         const response = await axios.post(`${API_URL}/stories/${storyId}/like/${slideIndex}`, {}, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        console.log(response.data);
+        // console.log(response.data);
         return response.data.likes;
     } catch (error) {
         console.error("Like story error:", error);
@@ -118,7 +118,7 @@ export const unLikeStory = async (storyId, slideIndex) => {
         const response = await axios.post(`${API_URL}/stories/${storyId}/unlike/${slideIndex}`, {}, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        console.log(response.data);
+        // console.log(response.data);
         return response.data.likes;
     } catch (error) {
         console.error("UnLike story error:", error);
@@ -129,7 +129,7 @@ export const unLikeStory = async (storyId, slideIndex) => {
 // Function to bookmark a story (if you want to implement this feature)
 export const bookmarkStory = async (storyId, index) => {
     const token = localStorage.getItem('token');
-    console.log(token);
+    // console.log(token);
     try {
         const response = await axios.post(`${API_URL}/stories/bookmarks/${storyId}`, {index}, {
             headers: { Authorization: `Bearer ${token}` }

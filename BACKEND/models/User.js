@@ -13,11 +13,10 @@ const UserSchema = new Schema({
         required: true
     },
     bookmarks: [{
-        story: { type: mongoose.Schema.Types.ObjectId, ref: 'Story' }, // Reference to Story
-        index: { type: Number, required: true } // Store the index alongside the story reference
+        story: { type: mongoose.Schema.Types.ObjectId, ref: 'Story'}, // Reference to Story
+        index: { type: Number} // Store the index alongside the story reference
     }],
 });
 
-UserSchema.index({ 'bookmarks.story': 1, 'bookmarks.index': 1 }, { unique: true });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -193,22 +193,6 @@ router.post('/:storyId/unlike/:slideIndex', [authenticateToken], async (req, res
 });
 
 
-// Share a story (get the link)
-router.get('/:id/share', async (req, res) => {
-  try {
-    const story = await Story.findById(req.params.id);
-    if (story) {
-      const link = `http://yourwebsite.com/stories/${story._id}`; // Update this to your actual URL
-      return res.status(200).json({ message: 'Story link retrieved successfully!', link });
-    } else {
-      return res.status(404).json({ message: 'Story not found' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error retrieving story link', error: error.message });
-  }
-});
-
 // Get all stories
 router.get('/all', async (req, res) => {
   try {
