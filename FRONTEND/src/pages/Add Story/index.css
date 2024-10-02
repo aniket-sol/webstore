@@ -1,0 +1,229 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.add-story-modal {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 700px;
+  width: 60%;
+  position: relative;
+}
+
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  color: red;
+  border: 2px solid red;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 100%;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.head {
+  display: none;
+}
+
+.slide-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.slide-tabs {
+  position: relative;
+  display: flex;
+  gap: 10px;
+}
+
+.slide-tab {
+  background: white;
+  border: none;
+  color: black;
+  padding: 16px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+
+.active {
+  border: 2px solid rgb(86, 146, 215);
+}
+
+.add-slide-tab {
+  background: white;
+  font-weight: bold;
+  box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.1);
+}
+
+.slide-limit-info {
+  margin-left: auto;
+  color: #777;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.form-group {
+  width: 70%;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 60px;
+
+}
+
+.form-group #description {
+  height: 100px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 60%;
+  padding: 10px;
+  border: 2px solid black;
+  color: black;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.prev-btn,
+.next-btn,
+.post-btn {
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 20px;
+  width: 100px;
+  font-weight: 600;
+}
+
+.post-btn {
+  background-color: #e57373;
+}
+
+.prev-btn {
+  background: #7EFF73;
+}
+
+.next-btn {
+  background: #73ABFF;
+  margin-left: 20px;
+}
+
+.form-group option {
+  background-color: white;
+}
+
+.delete-slide-btn {
+  position: absolute;
+  top: -5px;
+  /* Adjust the distance from the top */
+  right: -5px;
+  /* Adjust the distance from the right */
+  background: transparent;
+  color: red;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  z-index: 2;
+  border: red 2px solid;
+}
+
+/* Mobile view for screens smaller than 500px */
+@media (max-width: 500px) {
+  .add-story-modal {
+    width: 80%; /* Set the width to 80% */
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+  }
+
+  .mobile-view {
+    display: flex;
+    gap: 20px;
+  }
+
+  .slide-limit-info {
+    display: none;
+  }
+  .slide-section {
+    flex-direction: column; /* Stack slide section vertically */
+  }
+
+  .slide-tabs {
+    flex-direction: column; /* Stack slide tabs vertically */
+    width: 100%; /* Full width for slide tabs */
+    align-items: flex-start; /* Align slide tabs to the left */
+  }
+
+  .slide-tab {
+    width: 100%; /* Make each slide tab take full width */
+    text-align: left; /* Align text to the left */
+  }
+
+  .head {
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .form-group {
+    flex-direction: column; /* Stack label and input field vertically */
+    width: 100%; /* Make form group take full width */
+    margin-left: 0; /* Reset left margin */
+  }
+
+  .form-group label {
+    width: 100%; /* Make the label full width */
+    margin-bottom: 5px; /* Add some space below the label */
+  }
+
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; /* Make input fields take full width */
+    padding: 10px;
+  }
+
+  .button-group {
+    justify-content: center; /* Center the Post button */
+    margin-top: 20px;
+  }
+
+  .prev-btn, .next-btn {
+    display: none; /* Hide Previous and Next buttons in mobile view */
+  }
+
+  .post-btn {
+    width: 150px; /* Center and enlarge the Post button */
+    margin: 0 auto; /* Center align */
+  }
+}
+

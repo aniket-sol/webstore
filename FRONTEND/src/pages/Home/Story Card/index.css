@@ -1,0 +1,55 @@
+.story-card {
+    position: relative;
+    width: 270px;
+    height: 420px; /* Adjust this height as per your design */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a slight shadow */
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.story-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.story-title, .story-description {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* To make text readable on top of the image */
+    z-index: 1;
+}
+
+.story-title {
+    bottom: 50px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.story-description {
+    bottom: 20px;
+    font-size: 0.7em;
+}
+
+/* Optional: Add hover effects */
+.story-card:hover .story-title, .story-card:hover .story-description {
+    opacity: 0.9;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 500px) {
+    .story-card {
+        width: 100vw; /* Full-width for mobile */
+        height: 600px; /* Adjust height for smaller screens */
+    }
+
+    .story-title {
+        font-size: 1em;
+    }
+
+    .story-description {
+        font-size: 0.7em;
+    }
+}

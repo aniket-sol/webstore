@@ -1,0 +1,85 @@
+.category-container {
+    display: flex;
+    justify-content: flex-start; /* Items will start from the left */
+    padding: 20px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+    margin-left: 30px;
+    margin-bottom: 30px;
+    padding-top: 100px;
+}
+
+.category-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.category-list {
+    display: flex;
+    gap: 30px; /* Space between category items */
+    min-width: max-content; /* Prevent items from wrapping */
+}
+
+.category-item {
+    width: 190px;
+    height: 190px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden; /* Prevent image overflow */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.category-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.category-item.active {
+    border: 2px solid blue; /* Change color for active category */
+}
+
+.category-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.category-item:hover .category-image {
+    opacity: 0.7;
+}
+
+.category-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+@media (max-width: 500px) {
+    .category-container{
+        width: 100vw;
+        padding: 0;
+        padding-top: 100px;
+    }
+
+    .story-title {
+        font-size: 1em;
+    }
+
+    .story-description {
+        font-size: 0.7em;
+    }
+}
